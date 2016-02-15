@@ -1,0 +1,70 @@
+
+# Import the Tkinter classes and functions
+from Tkinter import *#Tk, Label, Button
+# Importing math
+#from math import *
+
+##### DEVELOP YOUR SOLUTION HERE #####
+#Building the main window
+'''The namespace 'Calculator' is being assigned to an object of type
+TK from the tkinter library, that object is essentially a form or
+window and we will create many more objects to populate it'''
+Main = Tk()
+'''Here we change a property of the object 'Calculator' of type TK,
+that property is the title which if looked up in the documentation
+contains what is written at the top of the window'''
+Main.title('Simple Calculator')
+'''Here we change the initial size of the calculator window'''
+Main.minsize(width = 200,height=200)
+
+#Setting the static setup variables
+Buttons = [[None, '0',6,1,1,2], [None, '1',5,1,1,1], [None, '2',5,2,1,1],
+           [None, '3',5,3,1,1], [None, '4',4,1,1,1], [None, '5',4,2,1,1],
+           [None, '6',4,3,1,1], [None, '7',3,1,1,1], [None, '8',3,2,1,1],
+           [None, '9',3,3,1,1], [None, '.',6,3,1,1], [None, '+',3,4,1,1],
+           [None, '-',4,4,1,1], [None, '*',5,4,1,1], [None, '/',6,4,1,1],
+           [None, '=',3,6,4,1]]
+#Setting all the reusable variables
+#MathLog = StringVar()
+'''Holds the current calculation'''
+Total = 0.00
+'''Holds a number after an action is hit'''
+Input = [0.00,0.00,0]; Dot = False
+'''Two part, first to handle whole numbers, second to hold the decimal place'''
+Action = ''
+'''Holds the action asked until equals is hit'''
+#Radians = True;
+#Creating the labels
+InputL = Label(Main, background = 'white', text = '0.00', wraplength = 600)
+InputL.grid(row=0,column=1, rowspan=1,columnspan=6)
+ActionL = Label(Main, background = 'white', text = '0.00', wraplength = 600)
+ActionL.grid(row=1,column=1, rowspan=1,columnspan=6)
+#Building Modules here
+def Actions(Id = 0):#, Act):
+    global Dot, Input, Total, Action, ActionL, InputL, Buttons
+    if(Id<10 and  not Dot):
+        Input[0] = Input[0] * 10 + Id
+        print 'bipbip'
+    elif(Id<10 and Dot):
+        Input[2] += 1
+        Input[1] += Id/(10**(Input[2]))
+        print 'bipbop'
+    else:
+        Total = Input[0]+Input[1]
+        Action = Buttons[Id][1]#Act
+        print Total, Action, (Input[0]+Input[1]), Id
+    InputL.text = str(Input[0]+Input[1])
+    ActionL.text = str(Total) + Action
+    print 'leg nose'
+
+#Creating the buttons
+for i in range(len(Buttons)):
+    Buttons[i][0] = Button(Main, text=Buttons[i][1], command=lambda:Actions(i))#, Buttons[i][1]))
+    Buttons[i][0].grid(row=Buttons[i][2],column=Buttons[i][3], rowspan=Buttons[i][4],columnspan=Buttons[i][5])
+ActionL.text = 'huhu'
+print 'huhu'
+huhu = Button(Main, text = 'huhu', command=lambda:Actions(12))
+huhu.grid(row=15, column=15)
+Main.mainloop() #The final Thread
+#
+#--------------------------------------------------------------------#
